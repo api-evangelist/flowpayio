@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.flowpay.io/specifications/fully-embedded-api/
+docs: https://developers.flowpay.io/specifications/fully-embedded-api/
+description: >-
+  Flowpay's Partner API authenticates with OAuth 2.0 client-credentials, issued
+  by Auth0. Partners exchange a CLIENT_ID/CLIENT_SECRET for a short-lived bearer
+  access token and present it as `Authorization: Bearer <token>` on every
+  request. A PARTNER_CODE identifies the partner and a WEBHOOK_SECRET is used to
+  verify inbound webhook HMAC signatures. The partner-implemented Sales
+  Transactions API additionally accepts a static API key via the `X-API-Key`
+  header. No user-facing OAuth scopes are documented (machine-to-machine
+  client-credentials only).
+summary:
+  types: [oauth2, apiKey]
+  api_key_in: [header]
+  oauth2_flows: [clientCredentials]
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  flow: clientCredentials
+  token_url_production: https://flowpay.eu.auth0.com/oauth/token
+  token_url_testing: https://flowpay-test.eu.auth0.com/oauth/token
+  audience_production: https://api.partner.flowpay.io
+  audience_testing: https://api.test.partner.flowpay.io
+  presented_as: 'Authorization: Bearer <access_token>'
+  credentials: [CLIENT_ID, CLIENT_SECRET, PARTNER_CODE]
+  scopes: []
+  sources: [https://developers.flowpay.io/specifications/fully-embedded-api/]
+- name: ApiKey
+  type: apiKey
+  in: header
+  parameter_name: X-API-Key
+  applies_to: Sales Transactions API (partner-implemented data endpoint)
+  sources: [https://developers.flowpay.io/specifications/sales-transactions-api/]
+webhook_verification:
+  mechanism: HMAC-SHA256
+  signature_header: x-flowpay-sig
+  timestamp_header: x-flowpay-ts
+  secret: WEBHOOK_SECRET
+  notes: Timestamp header guards against replay; recompute the HMAC over the raw body and compare.
