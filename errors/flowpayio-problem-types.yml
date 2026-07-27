@@ -1,0 +1,34 @@
+generated: '2026-07-19'
+method: searched
+format: hal-error-object
+source: >-
+  https://developers.flowpay.io/specifications/fully-embedded-api/ - the error
+  section documents standard HTTP status codes and a shared JSON error envelope.
+  Flowpay does NOT use RFC 9457 application/problem+json; errors are returned as
+  a HAL-style object.
+envelope:
+  media_type: application/json
+  shape: '{ "message": string, "logref": uuid, "_embedded": { "errors": [ { "message": string } ] }, "_links": { "self": { "href": string, "templated": bool } } }'
+  fields:
+    message: Human-readable top-level error message.
+    logref: UUID correlating the error to Flowpay server logs (quote when contacting support).
+    _embedded.errors: Array of granular field/validation error messages.
+    _links.self: Link back to the offending resource/request.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Syntactic validation failure - malformed request or invalid parameters.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid authentication (absent/expired bearer token or API key).
+  remediation: Re-fetch an OAuth token from the Auth0 token endpoint; verify CLIENT_ID/CLIENT_SECRET.
+- status: 403
+  title: Forbidden
+  meaning: Authenticated but insufficient permissions for the requested resource/action.
+- status: 404
+  title: Not Found
+  meaning: The requested resource does not exist (e.g. unknown customer or financing id).
+- status: 422
+  title: Unprocessable Entity
+  meaning: Business-logic validation failure - request was well-formed but violates domain rules.
+  remediation: Inspect _embedded.errors[] for the specific field-level reasons.

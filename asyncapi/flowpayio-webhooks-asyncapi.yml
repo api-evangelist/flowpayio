@@ -1,0 +1,84 @@
+asyncapi: 2.6.0
+info:
+  title: Flowpay Webhooks
+  version: v1
+  description: >-
+    Flowpay notifies partner applications of asynchronous events via HTTPS POST
+    webhooks. Each delivery is signed with an HMAC-SHA256 signature in the
+    `x-flowpay-sig` header and carries an `x-flowpay-ts` timestamp header to
+    guard against replay. Verify the signature using your WEBHOOK_SECRET before
+    processing. Two event types are documented: customer-scoring (scoring
+    completed for a customer) and financing-state (a financing changed state).
+  contact:
+    name: Flowpay
+    url: https://developers.flowpay.io/
+  x-provenance:
+    generated: '2026-07-19'
+    method: searched
+    source: https://developers.flowpay.io/specifications/fully-embedded-api/
+externalDocs:
+  description: Flowpay Fully Embedded API documentation
+  url: https://developers.flowpay.io/specifications/fully-embedded-api/
+defaultContentType: application/json
+servers:
+  partner_endpoint:
+    url: https://partner.example.com
+    protocol: https
+    description: >-
+      Flowpay delivers events to the HTTPS endpoint you register with Flowpay.
+      This placeholder host stands in for the partner-configured receiver.
+channels:
+  customer-scoring:
+    description: Emitted when Flowpay completes credit/eligibility scoring for a customer.
+    subscribe:
+      operationId: onCustomerScoring
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/CustomerScoringEvent'
+  financing-state:
+    description: Emitted when a financing changes state (e.g. approved, signed, active, repaid).
+    subscribe:
+      operationId: onFinancingState
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/FinancingStateEvent'
+components:
+  messages:
+    CustomerScoringEvent:
+      name: customer-scoring
+      title: Customer scoring completed
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          x-flowpay-sig:
+            type: string
+            description: HMAC-SHA256 signature of the raw payload, keyed with WEBHOOK_SECRET.
+          x-flowpay-ts:
+            type: string
+            description: Timestamp of the delivery, used for replay protection.
+      payload:
+        type: object
+        description: Scoring result notification for a customer (schema not fully published).
+    FinancingStateEvent:
+      name: financing-state
+      title: Financing state changed
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          x-flowpay-sig:
+            type: string
+            description: HMAC-SHA256 signature of the raw payload, keyed with WEBHOOK_SECRET.
+          x-flowpay-ts:
+            type: string
+            description: Timestamp of the delivery, used for replay protection.
+      payload:
+        type: object
+        description: Financing state-change notification (schema not fully published).

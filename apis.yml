@@ -1,25 +1,146 @@
 aid: flowpayio
 name: flowpay.io
-description: flowpay.io is a company surfaced as a portfolio company of techstars and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Flowpay is an embedded-lending fintech that provides fast, flexible,
+  non-purpose financing of up to EUR 100,000 to small and medium-sized
+  businesses across the Czech Republic, Slovakia, and the Netherlands. Its
+  AI-driven platform lets e-commerce, point-of-sale, accounting, and banking
+  partners embed an end-to-end lending journey - customer onboarding and
+  identity verification, open-banking and sales-transaction data ingestion,
+  personalized offer generation, and financing origination, document signing,
+  and repayment - directly into their own products via a REST partner API,
+  hosted iframe/linkout surfaces, and a modular JavaScript/React embed SDK.
+  Authentication is OAuth 2.0 client-credentials (Auth0), with HMAC-SHA256
+  signed webhooks for customer-scoring and financing-state events. Flowpay is a
+  Techstars-backed company.
 url: https://raw.githubusercontent.com/api-evangelist/flowpayio/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-public-developer-surface
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://cdn.prod.website-files.com/67f67c483b46bf33a3c28b20/688a66eddaf45373ea01c930_OG%20(2).png
 tags:
 - Company
-apis: []
+- Financing
+- Lending
+- Embedded Finance
+- Fintech
+- SME
+- Open Banking
+- Payments
+apis:
+- name: Flowpay Partner API
+  description: >-
+    Flowpay's REST partner API for the Fully Embedded (Native) lending flow -
+    customer onboarding and service activation, open-banking account and
+    transaction ingestion, offer request/recalculation/retrieval, and financing
+    origination and management. JSON over HTTPS, OAuth 2.0 client-credentials,
+    HAL-style error envelope, HMAC-signed webhooks.
+  humanURL: https://developers.flowpay.io/specifications/fully-embedded-api/
+  baseURL: https://api.flowpay.io
+  tags:
+  - Lending
+  - Embedded Finance
+  - Open Banking
+  properties:
+  - type: Documentation
+    url: https://developers.flowpay.io/specifications/fully-embedded-api/
+  - type: Sandbox
+    url: sandbox/flowpayio-sandbox.yml
+- name: Flowpay Sales Transactions API
+  description: >-
+    Partner-implemented endpoint (GET /v1/sales) that supplies Flowpay with a
+    merchant's paginated sales/order history (status, delivery, payment,
+    currency, totals, line items) so Flowpay can score and personalize
+    financing offers. Supports API-key or OAuth 2.0 auth and incremental sync
+    via updatedAt.
+  humanURL: https://developers.flowpay.io/specifications/sales-transactions-api/
+  baseURL: https://api.flowpay.io
+  tags:
+  - Open Banking
+  - Data
+  properties:
+  - type: Documentation
+    url: https://developers.flowpay.io/specifications/sales-transactions-api/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/flowpayio-domain-security.yml
 - type: Website
   url: https://flowpay.io/
+- type: DeveloperPortal
+  url: https://developers.flowpay.io/
+- type: Documentation
+  url: https://developers.flowpay.io/
+- type: APIReference
+  url: https://developers.flowpay.io/specifications/fully-embedded-api/
+- type: GettingStarted
+  url: https://developers.flowpay.io/
+- type: Blog
+  url: https://www.flowpay.io/blog
+- type: Support
+  url: https://www.flowpay.io/contact
+- type: SignUp
+  url: https://my.flowpay.io/signup
+- type: Login
+  url: https://my.flowpay.io/signin
+- type: TermsOfService
+  url: https://www.flowpay.io/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.flowpay.io/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/flowpay-io
+- type: Authentication
+  url: authentication/flowpayio-authentication.yml
+- type: Conventions
+  url: conventions/flowpayio-conventions.yml
+- type: ErrorCatalog
+  url: errors/flowpayio-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/flowpayio-lifecycle.yml
+- type: Sandbox
+  url: sandbox/flowpayio-sandbox.yml
+- type: AsyncAPI
+  url: asyncapi/flowpayio-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/flowpayio-webhooks-asyncapi.yml
+- type: DataModel
+  url: data-model/flowpayio-data-model.yml
+- type: Conformance
+  url: conformance/flowpayio-conformance.yml
+- type: Packages
+  url: packages/flowpayio-packages.yml
+- type: SDKs
+  url: packages/flowpayio-packages.yml
+- type: Components
+  url: components/flowpayio-components.yml
+- type: MCPServer
+  url: mcp/flowpayio-mcp.yml
+- type: LLMsTxt
+  url: llms/flowpayio-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

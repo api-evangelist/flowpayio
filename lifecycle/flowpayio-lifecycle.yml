@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  https://developers.flowpay.io/ - versioning derived from the API path prefix;
+  no published deprecation policy, SLA, or public status page was found on the
+  developer or marketing site as of the fetch date.
+versioning:
+  scheme: uri-path
+  current: v1
+  mechanism: version segment in the request path (/partner-api/v1, /v1/sales)
+  docs: https://developers.flowpay.io/specifications/fully-embedded-api/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No documented deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  public_uptime_target: null
+  notes: No public SLA or uptime commitment published on the developer/marketing site.
+status_page: null
+status_page_notes: >-
+  No dedicated public status page (status.flowpay.io or equivalent) was found.
+deprecated_operations: []

@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.flowpay.io/specifications/js-sdk/
+description: >-
+  Flowpay's client-side embedded UI surface - the "myFlowpay" embedded lending
+  experience mounted inside a partner's web app. Delivered as a modular
+  JavaScript/React SDK (the @flowpay-io npm packages) plus hosted iframe/linkout
+  surfaces. Distinct from server-side integration; these render the borrower UX
+  in the browser.
+docs:
+  - https://developers.flowpay.io/specifications/js-sdk/
+  - https://developers.flowpay.io/specifications/secure-embed/
+  - https://developers.flowpay.io/specifications/secure-linkout/
+libraries:
+  - {name: "@flowpay-io/embed-react", purpose: React components and hooks that mount the embedded myFlowpay flow.}
+  - {name: "@flowpay-io/embed-core", purpose: Framework-agnostic controller for the embedded integration.}
+  - {name: "@flowpay-io/embed-auth", purpose: Authentication utilities for the embedded client.}
+families:
+  embedded:
+    description: In-app embedded lending experience rendered inside the partner UI.
+    components:
+      - {name: Secure Embed (iframe), description: Iframe-based embedded integration with customization, communication protocol, and application-flow options.}
+      - {name: Embedded (Fully Native), description: Native embed driven by the @flowpay-io/embed-react / embed-core SDK.}
+  hosted_redirect:
+    description: Redirect / linkout surfaces hosted by Flowpay.
+    components:
+      - {name: Secure Linkout, description: Redirect-based flow that hands the borrower off to a Flowpay-hosted lending journey.}

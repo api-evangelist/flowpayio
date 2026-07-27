@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  https://developers.flowpay.io/specifications/js-sdk/ and the npm registry
+  (@flowpay-io scope). Versions confirmed via https://registry.npmjs.org at
+  fetch time. All packages are first-party (npm @flowpay-io org, MIT licensed,
+  homepage developers.flowpay.io). No PyPI, Maven, NuGet, Go, RubyGems,
+  Packagist, or crates.io first-party packages were found.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@flowpay-io/embed-react"
+    url: https://www.npmjs.com/package/@flowpay-io/embed-react
+    version: 1.3.1
+    license: MIT
+    install: npm install @flowpay-io/embed-react
+    description: React components and hooks for the embedded myFlowpay integration.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@flowpay-io/embed-core"
+    url: https://www.npmjs.com/package/@flowpay-io/embed-core
+    version: 1.2.2
+    license: MIT
+    install: npm install @flowpay-io/embed-core
+    description: Framework-agnostic core library for controlling the embedded myFlowpay integration.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@flowpay-io/embed-auth"
+    url: https://www.npmjs.com/package/@flowpay-io/embed-auth
+    version: 1.2.2
+    license: MIT
+    install: npm install @flowpay-io/embed-auth
+    description: Authentication utilities for the embedded myFlowpay integration.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@flowpay-io/offer"
+    url: https://www.npmjs.com/package/@flowpay-io/offer
+    version: 3.1.0
+    license: MIT
+    install: npm install @flowpay-io/offer
+    description: Financing installment-plan / offer calculation utilities.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@flowpay-io/shared"
+    url: https://www.npmjs.com/package/@flowpay-io/shared
+    version: 1.2.2
+    license: MIT
+    install: npm install @flowpay-io/shared
+    description: Shared TypeScript types and utilities used across the Flowpay embed SDK.
+    official: true
+reference_apps:
+  - name: embed-sandbox-app
+    url: https://github.com/flowpay-io/embed-sandbox-app
+    description: Public example host app for the embedded login/lending flow (@flowpay-io/embed-react).

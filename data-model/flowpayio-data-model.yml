@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  Derived from the resource groups and endpoints documented at
+  https://developers.flowpay.io/specifications/fully-embedded-api/ and the sales
+  order object at
+  https://developers.flowpay.io/specifications/sales-transactions-api/. No
+  OpenAPI is published, so id-prefixes and exhaustive fields are not asserted.
+docs: https://developers.flowpay.io/specifications/fully-embedded-api/
+notation: >-
+  relationships use has_one / has_many / belongs_to with the reference field
+  name; direction is from the entity that owns the reference.
+entities:
+  - {name: Customer, domain: onboarding, description: An SME onboarded by the partner; identity-verified and scored for financing.}
+  - {name: Representative, domain: onboarding, description: A person representing the customer business (updated via representative operations).}
+  - {name: BankAccount, domain: open-banking, description: A customer bank account whose balances/metadata the partner pushes to Flowpay.}
+  - {name: BankTransaction, domain: open-banking, description: An incremental bank transaction record ingested for scoring.}
+  - {name: Offer, domain: offers, description: A personalized financing offer requested, recalculated, and retrieved for a customer.}
+  - {name: Financing, domain: financing, description: An originated loan - application, document signing, active management, prolongation, repayment.}
+  - {name: SalesOrder, domain: sales, description: A merchant sales/order record supplied via the Sales Transactions API for scoring.}
+relationships:
+  - {from: Customer, to: Representative, kind: has_many, via: customer}
+  - {from: Customer, to: BankAccount, kind: has_many, via: customer}
+  - {from: BankAccount, to: BankTransaction, kind: has_many, via: bank-account}
+  - {from: Customer, to: Offer, kind: has_many, via: customer}
+  - {from: Offer, to: Financing, kind: has_one, via: offer}
+  - {from: Customer, to: Financing, kind: has_many, via: customer}
+  - {from: Customer, to: SalesOrder, kind: has_many, via: customerId}
+sales_order_fields:
+  required: [id, customerId, status, delivery, payment, currency, createdAt, updatedAt, totalPrice]
+  optional: [customerName, totalDiscount, totalShipping, totalTax, billingAddress, shippingAddress, items]
+  enums:
+    status: [PENDING, DELIVERED, CANCELED, REFUNDED]
+    delivery: [CARRIER, PERSONAL, ONLINE]
+    payment: [CASH, CARD, BANK]

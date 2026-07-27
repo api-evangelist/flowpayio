@@ -1,0 +1,69 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  https://developers.flowpay.io/specifications/fully-embedded-api/ and
+  https://developers.flowpay.io/specifications/sales-transactions-api/ - the
+  cross-cutting request/response conventions that apply across Flowpay's partner
+  API surface.
+description: >-
+  How Flowpay's Partner API behaves across operations: authentication style,
+  API versioning, pagination, error envelope, webhook signing, and rate-limit
+  signaling. Idempotency is not documented as a first-class contract.
+
+base_url:
+  production: https://api.flowpay.io
+  testing: https://api.test.flowpay.io
+api_style: REST over HTTPS, JSON request/response bodies
+path_prefix: /partner-api/v1 (Sales Transactions API uses /v1/sales)
+
+authentication:
+  scheme: OAuth 2.0 client-credentials (Auth0) bearer token; Sales API also accepts X-API-Key
+  detail: authentication/flowpayio-authentication.yml
+  docs: https://developers.flowpay.io/specifications/fully-embedded-api/
+
+versioning:
+  scheme: uri-path
+  current: v1
+  mechanism: version segment in the path (/partner-api/v1, /v1/sales)
+  docs: https://developers.flowpay.io/specifications/fully-embedded-api/
+
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header or idempotent-retry contract is documented for the
+    Partner API. Data-ingestion endpoints (bank-transactions) are described as
+    incremental "send only new transactions since the last update", which is a
+    de-facto dedupe pattern rather than a documented idempotency key.
+
+pagination:
+  style: cursor-or-offset
+  documented_on: Sales Transactions API (GET /v1/sales)
+  request_params:
+    size: records per response
+    page: pagination token (cursor) or numeric offset
+    updatedAt: ISO-8601; return records with updatedAt strictly greater (incremental sync)
+  response_fields:
+    nextPage: cursor to the next page (cursor mode)
+  sort: updatedAt ascending
+  docs: https://developers.flowpay.io/specifications/sales-transactions-api/
+
+error_envelope:
+  media_type: application/json
+  style: HAL-like (Spring HATEOAS)
+  shape: '{ "message": string, "logref": uuid, "_embedded": { "errors": [ { "message": string } ] }, "_links": { "self": { "href": string, "templated": bool } } }'
+  detail: errors/flowpayio-problem-types.yml
+  rfc9457: false
+
+request_tracing:
+  correlation_field: logref
+  notes: Error responses carry a `logref` UUID for support/correlation.
+
+webhooks:
+  events: [customer-scoring, financing-state]
+  transport: HTTPS POST to a partner-configured endpoint
+  signature: HMAC-SHA256 in x-flowpay-sig with x-flowpay-ts timestamp (replay protection)
+  detail: asyncapi/flowpayio-webhooks-asyncapi.yml
+
+rate_limiting:
+  documented: false
+  notes: No published rate-limit policy or rate-limit response headers found in the developer docs.

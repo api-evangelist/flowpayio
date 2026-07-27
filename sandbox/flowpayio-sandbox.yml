@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.flowpay.io/specifications/fully-embedded-api/
+description: >-
+  Flowpay separates testing and production by using distinct API hosts and
+  distinct Auth0 tenants/audiences. Partners receive test CLIENT_ID/CLIENT_SECRET
+  credentials from Flowpay; no self-service magic test values (test cards, test
+  IBANs) are published in the public docs, so none are recorded here.
+docs:
+  - https://developers.flowpay.io/specifications/fully-embedded-api/
+modes:
+  - name: testing
+    api_base_url: https://api.test.flowpay.io
+    token_url: https://flowpay-test.eu.auth0.com/oauth/token
+    audience: https://api.test.partner.flowpay.io
+  - name: production
+    api_base_url: https://api.flowpay.io
+    token_url: https://flowpay.eu.auth0.com/oauth/token
+    audience: https://api.partner.flowpay.io
+credentials:
+  required: [CLIENT_ID, CLIENT_SECRET, PARTNER_CODE, WEBHOOK_SECRET]
+  provisioning: Issued by Flowpay to onboarded partners (not self-service).
+embed_sandbox:
+  reference_app: https://github.com/flowpay-io/embed-sandbox-app
+  notes: >-
+    Public example host app demonstrating the @flowpay-io/embed-react embedded
+    login/lending flow against the testing environment.
+magic_test_values:
+  documented: false
+  notes: No public test card numbers, test bank accounts, or test-clock tooling documented.

@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of the Flowpay hosts on 2026-07-19
+description: >-
+  Probed the /.well-known/ discovery surface on the Flowpay hosts. The
+  marketing/API hosts run on Webflow and return an HTTP 200 catch-all "Not
+  Found" HTML page for every /.well-known/ path (soft-404), so no genuine
+  discovery documents are published. The Auth0 identity tenant does expose a
+  valid OIDC discovery document, recorded below.
+hosts:
+  - host: https://api.flowpay.io
+    documents:
+      - {path: /.well-known/security.txt, status: 404, note: soft-404 Webflow catch-all HTML}
+      - {path: /.well-known/openid-configuration, status: 404, note: soft-404 Webflow catch-all HTML}
+      - {path: /.well-known/oauth-authorization-server, status: 404, note: soft-404 Webflow catch-all HTML}
+      - {path: /.well-known/api-catalog, status: 404, note: soft-404 Webflow catch-all HTML}
+      - {path: /.well-known/ai-plugin.json, status: 404, note: soft-404 Webflow catch-all HTML}
+  - host: https://flowpay.io
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+  - host: https://developers.flowpay.io
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+  - host: https://flowpay.eu.auth0.com
+    documents:
+      - {path: /.well-known/openid-configuration, status: 200, note: valid OIDC discovery for the Auth0 identity tenant (not the Partner API)}

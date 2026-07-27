@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  Derived from the documented authentication, error, and event surface at
+  developers.flowpay.io. No OpenAPI or published compliance/certification
+  program was found, so only observable cross-cutting standards are asserted.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: OAuth 2.0 client-credentials flow via Auth0 documented for the Partner API.
+  - id: oauth2-client-credentials
+    conforms: true
+    evidence: Machine-to-machine token exchange at flowpay.eu.auth0.com/oauth/token with audience.
+  - id: oidc
+    conforms: false
+    evidence: Auth0 tenant exposes OIDC discovery, but the Partner API uses client-credentials only (no OIDC login).
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a HAL-style {message, logref, _embedded.errors, _links} envelope, not application/problem+json.
+  - id: hal
+    conforms: true
+    evidence: Error responses use HAL _embedded/_links structure (Spring HATEOAS style).
+  - id: webhook-hmac-signing
+    conforms: true
+    evidence: Webhooks signed with HMAC-SHA256 in x-flowpay-sig with x-flowpay-ts replay guard.
+  - id: pagination
+    conforms: true
+    evidence: Sales Transactions API supports cursor (nextPage) or offset (size/page) pagination.
+  - id: idempotency
+    conforms: false
+    evidence: No documented idempotency-key contract.
+  - id: psd2-open-banking
+    conforms: partial
+    evidence: >-
+      Ingests open-banking account/transaction data via partner push, but no
+      PSD2 licensing/AISP conformance is claimed in the developer docs.
