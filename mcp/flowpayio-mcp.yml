@@ -1,31 +1,35 @@
 generated: '2026-07-19'
 method: derived
 status: candidate
-source: >-
-  No official hosted/remote Flowpay MCP server was found (no mcp.flowpay.io, no
-  @flowpay-io MCP package on npm, not in public MCP registries). This is a
-  DERIVED candidate tool list mapped from the documented Partner API operations
-  at developers.flowpay.io - a proposal, not a published server.
+source: No official hosted/remote Flowpay MCP server was found (no mcp.flowpay.io, no @flowpay-io MCP
+  package on npm, not in public MCP registries). This is a DERIVED candidate tool list mapped from the
+  documented Partner API operations at developers.flowpay.io - a proposal, not a published server.
 server:
   name: flowpay
   transport: http
   url: null
 tools:
-  - name: list_financings
-    description: List active financings for the partner.
-    source_operation: "GET /partner-api/v1/financings"
-  - name: activate_customer_service
-    description: Onboard a customer and activate the Flowpay service.
-    source_operation: "POST /partner-api/v1/customers/service-activation"
-  - name: push_bank_accounts
-    description: Push updated bank account balances and metadata for a customer.
-    source_operation: "PUT /partner-api/v1/customers/{id}/bank-accounts"
-  - name: push_bank_transactions
-    description: Send new bank transactions for a customer since the last update.
-    source_operation: "POST /partner-api/v1/customers/{id}/bank-transactions"
-  - name: notify_bank_accounts_updated
-    description: Notify Flowpay that updated open-banking data is available for a customer.
-    source_operation: "POST /partner-api/v1/customers/{id}/bank-accounts-updated"
-  - name: get_sales_transactions
-    description: Retrieve a merchant's paginated sales/order history for scoring.
-    source_operation: "GET /v1/sales"
+- name: list_financings
+  description: List active financings for the partner.
+  source_operation: GET /partner-api/v1/financings
+- name: activate_customer_service
+  description: Onboard a customer and activate the Flowpay service.
+  source_operation: POST /partner-api/v1/customers/service-activation
+- name: push_bank_accounts
+  description: Push updated bank account balances and metadata for a customer.
+  source_operation: PUT /partner-api/v1/customers/{id}/bank-accounts
+- name: push_bank_transactions
+  description: Send new bank transactions for a customer since the last update.
+  source_operation: POST /partner-api/v1/customers/{id}/bank-transactions
+- name: notify_bank_accounts_updated
+  description: Notify Flowpay that updated open-banking data is available for a customer.
+  source_operation: POST /partner-api/v1/customers/{id}/bank-accounts-updated
+- name: get_sales_transactions
+  description: Retrieve a merchant's paginated sales/order history for scoring.
+  source_operation: GET /v1/sales
+deployment:
+  mode: none
+  verified: derived
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census
